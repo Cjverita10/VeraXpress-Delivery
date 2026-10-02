@@ -1,0 +1,14 @@
+C:\Users\Cjvera$\OneDrive\Documentos\delivery\bin\Debug\net10.0\delivery.exe
+C:\Users\Cjvera$\OneDrive\Documentos\delivery\bin\Debug\net10.0\delivery.deps.json
+C:\Users\Cjvera$\OneDrive\Documentos\delivery\bin\Debug\net10.0\delivery.runtimeconfig.json
+C:\Users\Cjvera$\OneDrive\Documentos\delivery\bin\Debug\net10.0\delivery.dll
+C:\Users\Cjvera$\OneDrive\Documentos\delivery\bin\Debug\net10.0\delivery.pdb
+C:\Users\Cjvera$\OneDrive\Documentos\delivery\obj\Debug\net10.0\delivery.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Cjvera$\OneDrive\Documentos\delivery\obj\Debug\net10.0\delivery.AssemblyInfoInputs.cache
+C:\Users\Cjvera$\OneDrive\Documentos\delivery\obj\Debug\net10.0\delivery.AssemblyInfo.cs
+C:\Users\Cjvera$\OneDrive\Documentos\delivery\obj\Debug\net10.0\delivery.csproj.CoreCompileInputs.cache
+C:\Users\Cjvera$\OneDrive\Documentos\delivery\obj\Debug\net10.0\delivery.dll
+C:\Users\Cjvera$\OneDrive\Documentos\delivery\obj\Debug\net10.0\refint\delivery.dll
+C:\Users\Cjvera$\OneDrive\Documentos\delivery\obj\Debug\net10.0\delivery.pdb
+C:\Users\Cjvera$\OneDrive\Documentos\delivery\obj\Debug\net10.0\delivery.genruntimeconfig.cache
+C:\Users\Cjvera$\OneDrive\Documentos\delivery\obj\Debug\net10.0\ref\delivery.dll

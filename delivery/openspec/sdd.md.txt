@@ -1,0 +1,38 @@
+# Software Design Document (SDD) - VeraXpress Delivery System
+
+## 1. Problema
+El sistema de domicilios *VeraXpress Delivery* necesita gestionar la creación, empaquetado y despacho de pedidos de electrodomésticos. Se identificaron los siguientes retos de diseño:
+1. **Creación compleja de órdenes:** Construir un objeto `DeliveryOrder` requiere configurar múltiples parámetros (vehículo, producto, precio, cantidad, destino).
+2. **Cálculos y servicios opcionales:** Se requiere añadir servicios adicionales (como empaque de burbujas) a una orden sin modificar la clase base ni multiplicar subclases rígidas.
+3. **Carga diferida y cacheo:** Acceder repetidamente a las fichas técnicas de productos puede saturar recursos si no se controla el acceso a la información del producto.
+4. **Coordinación de subsistemas:** El proceso de despacho involucra inventario, pago y navegación. El cliente del código no debe lidiar directamente con la complejidad de cada subsistema.
+
+## 2. Requisitos
+
+### Requisitos Funcionales
+* **RF-01 (Construcción de Pedido):** El sistema debe permitir la construcción paso a paso de una orden de entrega.
+* **RF-02 (Decoración de Pedido):** El sistema debe permitir adjuntar empaque con burbujas de manera opcional, incrementando el precio total ($20.000 COP por unidad) y actualizando la descripción.
+* **RF-03 (Cache de Información):** El sistema debe almacenar en cache el resumen técnico del producto para evitar reevaluaciones innecesarias.
+* **RF-04 (Simplificación de Despacho):** El sistema debe ofrecer una interfaz unificada para coordinar la reserva de inventario, el pago y la entrega.
+
+### Requisitos No Funcionales
+* **RNF-01 (Mantenibilidad):** Aplicación de principios SOLID (Abierto/Cerrado, Responsabilidad Única).
+* **RNF-02 (Legibilidad y Estructura):** Separación clara entre código fuente (`src/`), especificaciones (`openspec/`) y documentación base (`README.md`).
+
+## 3. Patrones Seleccionados
+
+1. **Builder (`DeliveryOrderBuilder`):** Separa la construcción de un objeto complejo `DeliveryOrder` de su representación, permitiendo la creación paso a paso.
+2. **Decorator (`OrderDecorator`, `BubbleWrapDecorator`):** Permite añadir funcionalidades o costos adicionales a los objetos de forma dinámica.
+3. **Proxy (`ApplianceCacheProxy`):** Proporciona un sustituto o marcador de posición para controlar el acceso al objeto `RealApplianceData`.
+4. **Facade (`DispatchFacade`):** Ofrece una interfaz simplificada para el conjunto de subsistemas (`InventorySubsystem`, `PaymentSubsystem`, `NavigationSubsystem`).
+
+## 4. Diseño Propuesto
+El diseño utiliza interfaces e herencia para desacoplar las responsabilidades:
+* `DeliveryOrderBuilder` encapsula el estado mutable durante la creación de la orden.
+* `OrderDecorator` hereda de `DeliveryOrder` y mantiene una referencia `_baseOrder` para encadenar responsabilidades.
+* `DispatchFacade` coordina la secuencia de despacho sin exponer los detalles de sincronización/hilos al método principal.
+
+## 5. Criterios de Aceptación
+* **CA-01:** La llamada a `GetTotalPrice()` en una orden decorada retorna la suma exacta del valor base más los opcionales multiplicados por la cantidad.
+* **CA-02:** La visualización de la ficha técnica a través del proxy no genera duplicidad en el caché interno.
+* **CA-03:** El flujo de despacho invoca exitosamente inventario, cobro y navegación en secuencia sin fallos en tiempo de ejecución.
